@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AnimatedButton extends StatefulWidget {
 
   final String initialText, finalText;
-  ButtonStyle buttonStyle;
+  final ButtonStyle buttonStyle;
   final IconData iconData;
   final double iconSize;
   final Duration animationDuration;
@@ -37,7 +37,7 @@ class _AnimatedButtonState extends State<AnimatedButton> with TickerProviderStat
   @override
   void initState() {
     super.initState();
-    finalFontSize = widget.buttonStyle.finalTextStyle.fontSize;
+
     _controller = AnimationController(vsync: this, duration: widget.animationDuration);
     _currentState = ButtonState.SHOW_ONLY_TEXT;
     _smallDuration = Duration(milliseconds: (widget.animationDuration.inMilliseconds * 0.25).round());
@@ -51,10 +51,6 @@ class _AnimatedButtonState extends State<AnimatedButton> with TickerProviderStat
       else if (_controllerValue > 0.75){
         setState(() {
           _currentState = ButtonState.SHOW_TEXT_ICON;
-          widget.buttonStyle.finalTextStyle = TextStyle(
-            color: Color(0xff028f1d),
-            fontSize: finalFontSize * _controllerValue,
-          );
         });
       }
     });
